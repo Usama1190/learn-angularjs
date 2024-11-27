@@ -1,0 +1,4469 @@
+<!DOCTYPE html>    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Practice</title>
+
+    <!-- AngularJS Connected -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body>
+    <div ng-app="myShopping" ng-controller="myCtrl">Add Items
+        <input type="text" ng-model="addItems"><br><br>
+        <button type="button" ng-click="myFuncAdd()">Add</button>
+
+        <ul>
+            <li ng-repeat="x in products">{{ x }} <span ng-click="removeItems($index)">x</span></li>
+        </ul>
+
+        <p>{{ errorText }}</p>
+    </div> 
+
+    <script>
+        let app = angular.module('myShopping', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Slice'];
+            $scope.myFuncAdd = function() {
+                $scope.errorText = '';
+
+                if(!$scope.addItems) {return;}
+
+                if($scope.products.indexOf($scope.addItems) == -1) {
+                    $scope.products.push($scope.addItems);
+                }
+                else {
+                    $scope.errorText = 'This item is already in your list'
+                }
+            }
+
+            $scope.removeItems = function(x) {
+                $scope.errorText = '';
+                $scope.products.splice(x, 1);
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>     application ( w3.css design completed )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    W3.CSS Connected
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl" ng-cloak 
+        class="w3-card-2 w3-margin" style="max-width: 400px">
+
+        <header class="w3-container w3-light-gray w3-padding-16">
+            <h3>My Shopping List</h3>
+        </header>
+
+        <ul class="w3-ul">
+            <li ng-repeat="x in products" class="w3-padding-16">{{ x }} 
+                <span ng-click="removeItems($index)" 
+                    style="cursor: pointer;" class="w3-right w3-margin-right">x
+                </span>
+            </li>
+        </ul>
+
+        <div class="w3-container w3-light-gray w3-padding-16">
+            <div class="w3-row w3-margin-top">
+                <div class="w3-col s10">
+                    <input type="text" ng-model="addMe" 
+                        placeholder="Add shopping items here" 
+                        class="w3-input w3-border w3-padding">
+                </div>
+
+                <div class="w3-col s2">
+                    <button type="button" ng-click="addItems()" 
+                        class="w3-btn w3-padding w3-green">
+                        Add
+                    </button>
+                </div>
+            </div>
+            <p class="w3-text-red">{{ errortext }}</p>
+        </div>
+    </div>
+
+    <p>Try to add the same item twice, and you will get an error message.</p>
+
+    <script>
+        let app = angular.module('myShoppingList', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Cheese'];
+
+            $scope.addItems = function() {
+                $scope.errortext = '';
+
+                if(!$scope.addMe) { return; }
+
+                if($scope.products.indexOf($scope.addMe) == -1) {
+                    $scope.products.push($scope.addMe);
+                }
+                else {
+                    $scope.errortext = 'This item is already in your shopping list.';
+                }
+            };
+
+            $scope.removeItems = function(x) {
+                $scope.products.splice(x, 1);
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     application ( error handling )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in products">{{ x }} 
+                <span ng-click="removeItems($index)">x</span>
+            </li>
+        </ul>
+
+        <input type="text" ng-model="addMe">
+
+        <button type="button" ng-click="addItems()">Add</button>
+
+        <p>{{ errortext }}</p>
+    </div>
+
+    <p>Try to add the same item twice, and you will get an error message.</p>
+
+    <script>
+        let app = angular.module('myShoppingList', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Cheese'];
+
+            $scope.addItems = function() {
+                $scope.errortext = '';
+
+                if(!$scope.addMe) { return; }
+
+                if($scope.products.indexOf($scope.addMe) == -1) {
+                    $scope.products.push($scope.addMe);
+                }
+                else {
+                    $scope.errortext = 'This item is already in your shopping list.';
+                }
+            };
+
+            $scope.removeItems = function(x) {
+                $scope.products.splice(x, 1);
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     application ( removeItem($index) + splice )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in products">{{ x }} 
+                <span ng-click="removeItems($index)">x</span>
+            </li>
+        </ul>
+
+        <input type="text" ng-model="addMe">
+
+        <button type="button" ng-click="addItems()">Add</button>
+    </div>
+
+    <p>Click the little x to remove an item from the shopping list.</p>
+
+    <script>
+        let app = angular.module('myShoppingList', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Cheese'];
+
+            $scope.addItems = function() {
+                $scope.products.push($scope.addMe);
+            };
+
+            $scope.removeItems = function(x) {
+                $scope.products.splice(x, 1);
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     application ( addItems() + push() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in products">{{ x }}</li>
+        </ul>
+
+        <input type="text" ng-model="addMe">
+
+        <button type="button" ng-click="addItems()">Add</button>
+    </div>
+
+    <p>Write in the input field to add items.</p>
+
+    <script>
+        let app = angular.module('myShoppingList', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Cheese'];
+            $scope.addItems = function() {
+                $scope.products.push($scope.addMe);
+            };
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     application ( myShoppingList myCtrl )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in products">{{ x }}</li>
+        </ul>
+    </div>
+
+    <p>So far we have made an HTML list based on the items of an array.</p>
+
+    <script>
+        let app = angular.module('myShoppingList', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.products = ['Milk', 'Bread', 'Cheese'];
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( otherwise method )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!banana">Banana</a>
+    <a href="#!tomato">Tomato</a>
+
+    <p>Click on the links to change the content.</p>
+
+    <p>Use the "otherwise" method to define what to display when none of the 
+        links are clicked.
+    </p>
+
+    <div ng-view></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when('/banana', {
+                template: '<h1>Banana</h1><p>Bananas contains around 75% water.</p>'
+            })
+            .when('/tomato', {
+                template: '<h1>Tomato</h1><p>Tomato contains around 95% water.</p>'
+            })
+            .otherwise({
+                template: '<h1>None</h1><p>Nothing has been selected<p/>'
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( template )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!banana">Banana</a>
+    <a href="#!tomato">Tomato</a>
+
+    <p>Click on the links to change the content.</p>
+    
+    <p>The HTML shown in the ng-view directive are written in the template 
+        property of the $routeProvider.when method.
+    </p>
+
+    <div ng-view></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when('/', {
+                template: '<h1>Main</h1><p>Click on the links to change this content.</p>'
+            })
+            .when('/banana', {
+                template: '<h1>Banana</h1><p>Bananas contain around 75% water.</p>'
+            })
+            .when('/tomato', {
+                template: '<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>'
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( controller )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!london">City 1</a>
+    <a href="#!paris">City 2</a>
+
+    <p>Clicks on the links.</p>
+
+    <p>Note that each "view" has its own controller which each gives "msg" 
+        variable a value.
+    </p>
+
+    <div ng-view></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when('/', {
+                templateUrl: 'main.html'
+            })
+            .when('/london', {
+                templateUrl: 'london.html',
+                controller: 'londonCtrl'
+            })
+            .when('/paris', {
+                templateUrl: 'paris.html',
+                controller: 'parisCtrl'
+            });
+        });
+
+        app.controller('londonCtrl', function($scope) {
+            $scope.msg = 'I love London';
+        });
+
+        app.controller('parisCtrl', function($scope) {
+            $scope.msg = 'I love Paris';
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( $routeProvider )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!london">City 1</a>
+    <a href="#!paris">City 2</a>
+
+    <p>Click on the links to read about London and Paris.</p>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider.when('/', { templateUrl: 'main.html' })
+            .when('/london', { templateUrl : 'london.html'})
+            .when('/paris', { templateUrl : 'paris.html'})
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( class='ng-view' )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!red">Red</a>
+    <a href="#!green">Green</a>
+    <a href="#!blue">Blue</a>
+
+    <div class="ng-view"></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider.when('/', { templateUrl : 'main.html'})
+            .when('/red', { templateUrl : 'red.html'})
+            .when('/green', { templateUrl : 'green.html'})
+            .when('/blue', { templateUrl : 'blue.html'})
+        })
+    </script>
+
+    <p>Clicks on the links to navigate to 'red.htm', 'green.htm', or 'blue.htm' or
+        back to 'main.htm'
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( <ng-view></ng-view> )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!red">Red</a>
+    <a href="#!green">Green</a>
+    <a href="#!blue">Blue</a>
+
+    <ng-view></ng-view>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider.when('/', { templateUrl : 'main.html'})
+            .when('/red', { templateUrl : 'red.html'})
+            .when('/green', { templateUrl : 'green.html'})
+            .when('/blue', { templateUrl : 'blue.html'})
+        })
+    </script>
+
+    <p>Clicks on the links to navigate to 'red.htm', 'green.htm', or 'blue.htm' or
+        back to 'main.htm'
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( ng-view )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!red">Red</a>
+    <a href="#!green">Green</a>
+    <a href="#!blue">Blue</a>
+
+    <div ng-view></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider.when('/', { templateUrl : 'main.html'})
+            .when('/red', { templateUrl : 'red.html'})
+            .when('/green', { templateUrl : 'green.html'})
+            .when('/blue', { templateUrl : 'blue.html'})
+        })
+    </script>
+
+    <p>Clicks on the links to navigate to 'red.htm', 'green.htm', or 'blue.htm' or
+        back to 'main.htm'
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     routing ( ngRoute + library )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!red">Red</a>
+    <a href="#!green">Green</a>
+    <a href="#!blue">Blue</a>
+
+    <div ng-view></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            $routeProvider.when('/', { templateUrl : 'main.html'})
+            .when('/red', { templateUrl : 'red.html'})
+            .when('/green', { templateUrl : 'green.html'})
+            .when('/blue', { templateUrl : 'blue.html'})
+        })
+    </script>
+
+    <p>Clicks on the links to navigate to 'red.htm', 'green.htm', or 'blue.htm' or
+        back to 'main.htm'
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     animate ( css animation )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        @keyframes myChange {
+            from {
+                height: 100px;
+            }
+            to {
+                height: 0;
+            }
+        }
+
+        div {
+            height: 100px;
+            background-color: lightblue;
+        }
+
+        div.ng-hide {
+            animation: 0.5s myChange;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+</head>
+<body ng-app="ngAnimate">
+    <h1>Hide the div: <input type="checkbox" ng-model="myCheck"></h1>
+
+    <div ng-hide="myCheck"></div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     animate ( css transitions )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        div {
+            width: 100%;
+            height: 100px;
+            position: relative;
+            background-color: lightblue;
+            transition: all linear 0.5s;
+            top: 0;
+            left: 0;
+        }
+
+        .ng-hide {
+            height: 0;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+</head>
+<body ng-app="myApp">
+    <h1>Hide the div: <input type="checkbox" ng-model="myCheck"></h1>
+
+    <div ng-hide="myCheck"></div>
+
+    <script>
+        let app = angular.module('myApp', ['ngAnimate']);
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     animate ( ngAnimate + library )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        div {
+            transition: all linear 0.5s;
+            background-color: lightblue;
+            height: 100px;
+            width: 100%;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .ng-hide {
+            height: 0;
+            width: 0;
+            background-color: transparent;
+            top: -200px;
+            left: 200px;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+</head>
+<body ng-app="ngAnimate">
+    <h1>Hide the div: <input type="checkbox" ng-model="myCheck"></h1>
+
+    <div ng-hide="myCheck"></div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     includes ( ng-include config function )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <div ng-include="'https://tryit.w3schools.com/angular_include.php'"></div>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.config(function($sceDelegateProvider) {
+            $sceDelegateProvider.resourceUrlWhitelist([
+                'https://tryit.w3schools.com/**'
+            ]);
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     includes ( ng-include() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <div ng-include="'myTable.html'"></div>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php').then(function(response) {
+                $scope.names = response.data.records;
+            });
+        });
+    </script>
+
+    <p>The HTML, and Angular JS code for this table are located in the file 
+        'myTable.html'
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     includes ( ng-include() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <div ng-include="'myFile.html'"></div>  
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     w3.css ( add link w3.css )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    W3.CSS
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div class="w3-container">
+
+        <h3>Users</h3>
+        
+        <table class="w3-table w3-bordered w3-striped">
+            <tr>
+                <th>Edit</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tr ng-repeat="user in users">
+                <td>
+                <button class="w3-btn w3-ripple" ng-click="editUser(user.id)">&#9998; Edit</button>
+                </td>
+                <td>{{ user.fName }}</td>
+                <td>{{ user.lName }}</td>
+            </tr>
+        </table>
+        <br>
+        <button class="w3-btn w3-green w3-ripple" ng-click="editUser('new')">&#9998; Create New User</button>
+        
+        <form ng-hide="hideform">
+            <h3 ng-show="edit">Create New User:</h3>
+            <h3 ng-hide="edit">Edit User:</h3>
+                <label>First Name:</label>
+                <input class="w3-input w3-border" type="text" ng-model="fName" ng-disabled="!edit" placeholder="First Name">
+            <br>
+                <label>Last Name:</label>
+                <input class="w3-input w3-border" type="text" ng-model="lName" ng-disabled="!edit" placeholder="Last Name">
+            <br>
+                <label>Password:</label>
+                <input class="w3-input w3-border" type="password" ng-model="passw1" placeholder="Password">
+            <br>
+                <label>Repeat:</label>
+                <input class="w3-input w3-border" type="password" ng-model="passw2" placeholder="Repeat Password">
+            <br>
+            <button class="w3-btn w3-green w3-ripple" ng-disabled="error || incomplete">&#10004; Save Changes</button>
+        </form>
+        
+    </div>
+        
+    <script src="myUsers.js"></script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     api ( angular.isNumber() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.x1 = 'JOHN';
+            $scope.x2 = angular.isNumber($scope.x1);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     api ( angular.isString() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.x1 = 'JOHN';
+            $scope.x2 = angular.isString($scope.x1);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     api ( angular.uppercase() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.x1 = 'John';
+            $scope.x2 = angular.uppercase($scope.x1);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     api ( angular.lowercase() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{ x1 }}</p>
+        <p>{{ x2 }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.x1 = 'JOHN';
+            $scope.x2 = angular.lowercase($scope.x1);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( form validation )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <h2>Validation Example</h2>
+    
+    <form action="" ng-app="myApp" ng-controller="validateCtrl" name="myForm" 
+    novalidate>
+        <p>Username: <br>
+            <input type="text" name="user" ng-model="user" required>
+
+            <span style="color: red;" 
+            ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                <span ng-show="myForm.user.$error.required">
+                    Username is required.
+                </span>
+            </span>
+        </p>
+
+        <p>Email: <br>
+            <input type="email" name="email" ng-model="email" required>
+
+            <span style="color: red;" 
+            ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                <span ng-show="myForm.email.$error.required">
+                    Invalid email address.
+                </span>
+            </span>
+        </p>
+
+        <p>
+            <input type="submit" 
+            ng-disabled="myForm.user.$dirty && myForm.user.$invalid || 
+            myForm.email.$dirty && myForm.email.$invalid">
+        </p>
+    </form>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('validateCtrl', function($scope) {
+            $scope.user = 'John';
+            $scope.email = 'john@gmail.com';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( where e show true )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <p>Try writing in the input field:</p>
+
+    <form action="" name="myForm">
+        <input type="text" name="myInput" ng-model="myInput" required my-directive>
+    </form>
+
+    <p>The input's valid state is:</p>
+    <h1>{{ myForm.myInput.$valid }}</h1>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('myDirective', function() {
+            return {
+                require: 'ngModel',
+                link: function(scope, element, attr, mCtrl) {
+                    function myValidation(value) {
+                        if(value.indexOf("e") > -1) {
+                            mCtrl.$setValidity('charE', true);
+                        }
+                        else {
+                            mCtrl.$setValidity('charE', false);
+                        }
+                        return value;
+                    }
+                    mCtrl.$parsers.push(myValidation);
+                }
+            };
+        });
+    </script>
+
+    <p>The input field must contain the character "e" to be consider valid.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( ng-pristine ng-dirty )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        form.ng-pristine
+        {
+            background-color: lightblue;
+        }
+
+        form.ng-dirty
+        {
+            background-color: pink;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <form action="" name="myForm">
+        <p>Try writing in the input field:</p>
+
+        <input type="text" ng-model="myName" name="myName" required>
+
+        <p>The form gets a ng-dirty class when the form has been modified, and 
+            will therefore trun pink.
+        </p>
+    </form>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( add css classes )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        input.ng-invalid
+        {
+            background-color: pink;
+        }
+
+        input.ng-valid
+        {
+            background-color: lightgreen;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <p>Try writing in the input field:</p>
+
+    <form action="" name="myForm">
+        <input type="text" ng-model="myInput" name="myName" required>
+    </form>
+
+    <p>The input field requires content, and will therefore becomes green when
+        you write in it.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( form state and input state )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <P>Try leaving the first input field blank:</P>
+    <form action="" name="myForm">
+        <p>Name: <input type="text" name="myName" ng-model="myName" required>
+        <span ng-show="myForm.myName.$touched && myForm.myName.$invalid">
+            The name field is required</span>
+        </p>
+
+        <p>Address: <input type="email" name="myAddress" ng-model="myAddress"></p>
+    </form>
+
+    <p>We use the ng-show directive to only show the error message if the field
+        has been touched AND its empty.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( email )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <p>Try writing an E-mail address in the input field.</p>
+
+    <form action="" name="myForm">
+        <input type="email" name="myInput" ng-model="myInput">
+    </form>
+
+    <p>The input's valid state is:</p>
+    <h1>{{ myForm.myInput.$valid }}</h1>
+
+    <p>Note that the state of the input field is "true" before you start a 
+        writing in it, event it is does not contain an e-mail address.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form validation ( required )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <p>try writing in the input field.</p>
+
+    <form action="" name="myForm">
+        <input type="text" name="myInput" ng-model="myInput" required>
+    </form>
+
+    <p>The input valid state is:</p>
+    <h1>{{ myForm.myInput.$valid}}</h1>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( an angular js form )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <form novalidate>
+            First Name: <input type="text" ng-model="user.firstName"><br>
+            Last Name: <input type="text" ng-model="user.lastName">
+
+            <button type="button" ng-click="reset()">RESET</button>
+        </form>
+
+        <p>form {{ user }}</p>
+        <p>master {{ master }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('formCtrl', function($scope) {
+            $scope.master = { firstName: 'John', lastName: 'Doe' }
+
+            $scope.reset = function() {
+                $scope.user = angular.copy($scope.master);
+            }
+            $scope.reset();
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( select box hide and show element )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <form>
+        <select ng-model="myVar">
+            <option value=""></option>
+            <option value="dogs">Dogs</option>
+            <option value="tuts">Tutorials</option>
+            <option value="cars">Cars</option>
+        </select>
+    </form>
+
+    <div ng-switch="myVar">
+        <div ng-switch-when="dogs">
+            <h1>Dogs</h1>
+            <p>Welcome to a world of dogs.</p>
+        </div>
+
+        <div ng-switch-when="tuts">
+            <h1>Tutorials</h1>
+            <p>Learn form examples.</p>
+        </div>
+
+        <div ng-switch-when="cars">
+            <h1>Cars</h1>
+            <p>Read about cars</p>
+        </div>
+    </div>
+
+    <p>The ng-switch directive hides and shows HTML section depending on the 
+        value of the dropdown lists.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( radio buttons hide or show element )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <form>
+        Pick a topic:
+        Dogs <input type="radio" ng-model="myVar" value="dogs">
+        Tutorials <input type="radio" ng-model="myVar" value="tuts">
+        Cars <input type="radio" ng-model="myVar" value="cars">
+    </form>
+
+    <div ng-switch="myVar">
+        <div ng-switch-when="dogs">
+            <h1>Dogs</h1>
+            <p>Welcome to a world of dogs.</p>
+        </div>
+
+        <div ng-switch-when="tuts">
+            <h1>Tutorial</h1>
+            <p>Learn form examples.</p>
+        </div>
+
+        <div ng-switch-when="cars">
+            <h1>Cars</h1>
+            <p>Read about cars.</p>
+        </div>
+    </div>
+
+    <p>The ng-switch directive hides and shows HTML section depending on the 
+        value of the radio button.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( checkbox hide or show element )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <form>
+            Check to show a header: <input type="checkbox" ng-model="myVar">
+        </form>
+
+        <h1 ng-show="myVar">My Header</h1>
+    </div>
+
+    <p>The header's ng-show attribute is set to true when the checkbox is 
+        checked.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( data binding using expression )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <form>
+            First Name: <input type="text" ng-model="firstName">
+        </form>
+
+        <h1>You entered: {{ firstName }}</h1>
+    </div>
+
+    <p>Change the name inside the input field, and you will see the name in the
+        header changes occordingly.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     form ( data binding )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <form>
+            First name: <input type="text" ng-model="firstName">
+        </form>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('formCtrl', function($scope) {
+            $scope.firstName = 'John';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( $event myFunc($event) )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1 ng-mousemove="myFunc($event)">Mouse Over Me!</h1>
+
+        <p>Coordinates: {{ x + ', ' + y}}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.myFunc = function(myE) {
+                $scope.x = myE.clientX;
+                $scope.y = myE.clientY;
+            }
+        });
+    </script>
+
+    <p>Mouse over the heading to display the value of clientX and clientY from 
+        the event object.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( toggle true / false )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button type="button" ng-click="myFunc()">Click Me!</button>
+
+        <div ng-show="showMe">
+            <h1>Menu</h1>
+
+            <div>Pizza</div>
+            <div>Pasta</div>
+            <div>Pesce</div>
+        </div>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.showMe = false;
+
+            $scope.myFunc = function() {
+                $scope.showMe = !$scope.showMe;
+            }
+        })
+    </script>
+
+    <p>Click the button to show/hide the menu.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-click=myFunction() )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button type="button" ng-click="myFunction()">Click Me!</button>
+
+        <h2>{{ count }}</h2>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.count = 0;
+            
+            $scope.myFunction = function() {
+                $scope.count++;
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-click=count + 1 )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button type="button" ng-click="count = count + 1">Click Me!</button>
+
+        <h2>{{ count }}</h2>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.count = 0;
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-mousemove )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1 ng-mousemove="count = count + 1">Mouse Over Me!</h1>
+
+        <h2>{{ count }}</h2>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.count = 0;
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-hide=true )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p ng-hide="true">I am not visible.</p>
+
+        <p ng-hide="false">I am visible.</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-init=hour=13 ng-show=hour>13 )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="hour = 13">
+        <p ng-show="hour > 12">I am visible.</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-show= true )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p ng-show="true">I am visible.</p>
+        <p ng-show="false">I am not visible.</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     dom ( ng-disabled )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="mySwitch=true">
+        <p><button ng-disabled="mySwitch">Click Me!</button></p>
+
+        <p><input type="checkbox" ng-model="mySwitch">Button</p>
+
+        <p>{{ mySwitch }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( fetching data from asp.net server )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table ,tr, td
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd)
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even)
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php').then(function(response) {
+                $scope.names = response.data.records;
+            });
+        });
+        // customers_sql.aspx
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( fetching data from a php server )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table ,tr, td
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd)
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even)
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php').then(function(response) {
+                $scope.names = response.data.records;
+            });
+        });
+        // customers_mysql.php
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( y.brand for (x, y) in cars )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+
+        <select ng-model="selectedCar" ng-options="y.brand for (x, y) in cars"></select>
+
+        <h1>You selected: {{ selectedCar.brand }}</h1>
+        <h2>Model: {{ selectedCar.model }}</h2>
+        <h3>Color: {{ selectedCar.color }}</h3>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.cars = {
+                car01: {brand: 'Ford', model: 'Mustang', color: 'red'},
+                car02: {brand: 'Fait', model: '500', color: 'white'},
+                car03: {brand: 'Volvo', model: 'XC90', color: 'black'}
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( object in object x for (x, y) in cars )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+
+        <select ng-model="selectedCar" ng-options="x for (x, y) in cars"></select>
+
+        <h1>You selected: {{ selectedCar.brand }}</h1>
+        <h2>Model: {{ selectedCar.model }}</h2>
+        <h3>Color: {{ selectedCar.color }}</h3>
+    </div>
+
+    <p>Note that th selected value represents an object.</p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.cars = {
+                car01: {brand: 'Ford', model: 'Mustang', color: 'red'},
+                car02: {brand: 'Fait', model: '500', color: 'white'},
+                car03: {brand: 'Volvo', model: 'XC90', color: 'black'},
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( as an object )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+        <select ng-model="selectedCar" ng-options="x for (x, y) in cars"></select>
+
+        <h1>You selected: {{ selectedCar }}</h1>
+    </div>
+
+    <p>This example demonstrate the use of an object as the data source when 
+        creating a dropdown list.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.cars = {
+                car01: 'Ford',
+                car02: 'Fait',
+                car03: 'Volvo',
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( using with ng-options )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+
+        <select ng-model="selectedCar" ng-options="x.model for x in names"></select>
+
+        <h1>You selected: {{ selectedCar.model }}</h1>
+
+        <p>Its color is: {{ selectedCar.color }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.names = [
+                {model: 'Ford Mustang', color: 'red'},
+                {model: 'Fait 500', color: 'white'},
+                {model: 'Volvo XC90', color: 'black'},
+            ]
+        })
+    </script>
+
+    <p>When you use the ng-options directive to create dropdown lists, the 
+        selected value can be an object.
+    </p>
+
+    <p>In this example you can display both the model and the color of the 
+        selected element.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( ng-value instead of value )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+
+        <select ng-model="selectedCar">
+            <option ng-repeat="x in names" ng-value="{{x}}">{{ x.model }}</option>
+        </select>
+
+        <h1>You selected a {{ selectedCar.color }} {{ selectedCar.model }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.names = [
+                {model: 'Ford Mustang', color: 'red'},
+                {model: 'Faid 500', color: 'white'},
+                {model: 'Volvo XC90', color: 'black'},
+            ]
+        })
+    </script>
+
+    <p>When you use the ng-repeat directive to create dropdown lists, the 
+        selected value must be a string.
+    </p>
+
+    <p>In this example you will have to choose between the color or the model 
+        to be your selected value.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( value )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Select a car:</p>
+
+        <select ng-model="selectedCar">
+            <option value="{{ x.model }}" ng-repeat="x in cars">
+                {{ x.model }}
+            </option>
+        </select>
+
+        <h1>You selected: {{ selectedCar }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.cars = [
+                {model: 'Ford Mustang', color: 'red'},
+                {model: 'Fait 500', color: 'white'},
+                {model: 'Volvo XC90', color: 'black'},
+            ]
+        });
+    </script>
+
+    <p>When you use the ng-repeat directive to create dropdown list, the 
+        selected value must be a String
+    </p>
+
+    <p>In this example you will have to choose between the color or the model 
+        to be your selected Value.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( ng-repeat vs ng-options )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <select>
+            <option ng-repeat="x in names">{{ x }}</option>
+        </select>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.names = ['Emil', 'Tobias', 'Linux'];
+        });
+    </script>
+
+    <p>This example shows how to fill a dropdown list using the ng-repeat 
+        directive.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     select ( ng-options )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <select ng-model="selectedName" ng-options="x for x in names"></select>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.names = ['Emil', 'Tobias', 'linus'];
+        });
+    </script>
+
+    <p>This example shows how to fill a dropdown list using the ng-options 
+        directive.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( using $even and $odd )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table, tr,td 
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td ng-if="$odd" style="background-color: #f1f1f1;">
+                    {{ x.Name }}
+                </td>
+                <td ng-if="$even">
+                    {{ x.Name }}
+                </td>
+
+                <td ng-if="$odd" style="background-color: #f1f1f1;">
+                    {{ x.Country }}
+                </td>
+                <td ng-if="$even">
+                    {{ x.Country }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php')
+            .then(function (response) {
+                $scope.names = response.data.records;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( add $index + 1 )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table, tr, td 
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd)
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even)
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></scr>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php')
+            .then(function(response) {
+                $scope.names = response.data.records;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( add uppercase filter )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table, tr, td 
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd)
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even)
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country | uppercase }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php')
+            .then(function(response) {
+                $scope.names = response.data.records;
+            })
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( add filter orderBy )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table, tr, td 
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd) 
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) 
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names | orderBy: 'Country'">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php')
+            .then(function(response) {
+                $scope.names = response.data.records;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( displaying data with styling css )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    <style>
+        table, tr, td 
+        {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd)
+        {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) 
+        {
+            background-color: #ffffff;
+        }
+    </style>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get('https://www.w3schools.com/angular/customers.php')
+            .then(function(response) {
+                $scope.names = response.data.records;
+            })
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     tables ( displaying data in table )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get("https://www.w3schools.com/angular/customers.php").then(function(response) {
+                $scope.names = response.data.records;
+            })
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     $http ( JSON )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <ul>
+            <li ng-repeat="x in myData">
+                {{ x.Name + ', ' + x.Country }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get("https://www.w3schools.com/angular/customers.php").then(function (response) {
+                $scope.myData = response.data.records;
+            })
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     $http ( handle error .then method )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1>{{ content }}</h1>
+    </div>
+
+    <p>The $http service executes different functions on success and failure.</p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+                // wrongfilename
+            
+            $http.get("welcome.html").then(function(response) {
+                $scope.content = response.data;
+            }, function(response) {
+                $scope.content = 'Something went wrong!';
+            });
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     $http ( properties content, status, statusText )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Data: {{ content }}</p>
+        <p>Status: {{ statuscode }}</p>
+        <p>StatusText: {{ statustext }}</p>
+    </div>
+
+    <p>The response object has many properties. This example demonstrate the 
+        value of the data, status and statusText properties
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get("welcome.html")
+            .then(function(response) {
+                $scope.content = response.data;
+                $scope.statuscode = response.status;
+                $scope.statustext = response.statusText;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     $http ( methods and url )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Today's welcome message is:</p>
+
+        <h1>{{ myWelcome }}</h1>
+    </div>
+
+    <p>The $http service request a page on the server, and the response is set 
+        as the value of the 'myWelcome' variable.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http({
+                method: 'GET',
+                url: 'welcome.html'
+            }).then(function mySuccess(response) {
+                $scope.myWelcome = response.data;
+            },function myError(response) {
+                $scope.myWelcome = response.statusText;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     $http ( .get )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Today's welcome message is:</p>
+
+        <h1>{{ myWelcome }}</h1>
+    </div>
+
+    <p>The $http service request a page on the server, and the response is set 
+        as the value of the "myWelcome" variable.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get('welcome.html').then(function(response) {
+                $scope.myWelcome = response.data;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( filters use when object and an array )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Use a filter when displaying the array [255, 251, 200]</p>
+
+        <ul>
+            <li ng-repeat="x in counts">{{ x | myFormat }}</li>
+        </ul>
+
+        <p>This filter uses a service that converts a numbers into hexadecimal 
+            values.
+        </p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.service('hexafy', function() {
+            this.myFunc = function(x) {
+                return x.toString(16);
+            }
+        });
+
+        app.filter('myFormat', ['hexafy', function(hexafy) {
+            return function(x) {
+                return hexafy.myFunc(x);
+            }
+        }])
+
+        app.controller('myCtrl', function($scope) {
+            $scope.counts = [255, 251, 200];
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( use a custom service inside a filter )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        Convert the number 255, using a custom made service inside a custom 
+        made filter:
+
+        <h1>{{ 255 | myFormat }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.service('hexafy', function() {
+            this.myFunc = function(x) {
+                return x.toString(16);
+            }
+        });
+
+        app.filter('myFormat', ['hexafy', function(hexafy) {
+            return function(x) {
+                return hexafy.myFunc(x);
+            }
+        }])
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( create your own service )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>The hexadecimal value of 255 is:</p>
+
+        <h1>{{ hex }}</h1>
+    </div>
+
+    <p>A custom service with a method that converts a given number into a 
+        hexadecimal number.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.service('hexafy', function() {
+            this.myFunc = function(x) {
+                return x.toString(16);
+            }
+        });
+
+        app.controller('myCtrl', function($scope, hexafy) {
+            $scope.hex = hexafy.myFunc(255);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( $interval )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>The time is:</p>
+
+        <h1>{{ theTime }}</h1>
+    </div>
+
+    <p>The $interval service runs a function every specified milliseconds.</p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $interval) {
+            $scope.theTime = new Date().toLocaleTimeString();
+
+            $interval(function() {
+                $scope.theTime = new Date().toLocaleTimeString();
+            }, 1000);
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( $timeout )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>This header will change after two seconds:</p>
+
+        <h1>{{ myHeader }}</h1>
+    </div>
+
+    <p>The $timeout service runs a function after a specified number of 
+        milliseconds.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $timeout) {
+            $scope.myHeader = 'Hello World!';
+
+            $timeout(function() {
+                $scope.myHeader = 'How are you today?';
+            }, 2000);
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( $http )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Today's welcome message is:</p>
+        <h1>{{myWelcome}}</h1>
+    </div>
+
+    <p>The $http service requests a page on the server and the response is set as 
+        the value of the 'myWelcome' variable.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get("welcome.html").then(function(response) {
+                $scope.myWelcome = response.data;
+            });
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     services ( $location )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>The URL of this page:</p>
+        <h3>{{ myUrl }}</h3>
+    </div>
+
+    <p>This example uses the build-in $location service to get the absolute url 
+        of the page.
+    </p>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $location) {
+            $scope.myUrl = $location.absUrl();
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( custom filter )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <ul ng-app="myApp", ng-controller="namesCtrl">
+        <li ng-repeat="x in names">{{ x | myFormat}}</li>
+    </ul>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.filter('myFormat', function() {
+            return function(x) {
+                let c, txt = '';
+
+                for(let i = 0; i < x.length; i++) {
+                    c = x[i];
+
+                    if(i % 2 == 0) {
+                        c = c.toUpperCase();
+                    }
+
+                    txt += c;
+                }
+                return txt;
+            };
+        });
+
+        app.controller('namesCtrl', function($scope) {
+            $scope.names = [
+                'Jani',
+                'Carl',
+                'Margareth',
+                'Hege',
+                'Joe',
+                'Gustav',
+                'Birgit',
+                'Mary',
+                'Kai'
+            ];
+        });
+    </script>
+
+    <p>Make your own filter</p>
+    <p>This filter, called 'myFormat', will uppercase every other character.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( table ng-click )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="namesCtrl">
+        <p>Click the table header to change the sorting order.</p>
+
+        <table border="1" width="100%">
+            <tr>
+                <th ng-click="orderByMe('name')">Names</th>
+                <th ng-click="orderByMe('country')">Country</th>
+            </tr>
+
+            <tr ng-repeat="x in names | orderBy:myOrderBy">
+                <td>{{ x.name }}</td>
+                <td>{{ x.country }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        angular.module('myApp', []).controller('namesCtrl', function($scope) {
+            $scope.names = [
+                {name:'Jani',country:'Norway'},
+                {name:'Carl',country:'Sweden'},
+                {name:'Margareth',country:'England'},
+                {name:'Hege',country:'Norway'},
+                {name:'Joe',country:'Denmark'},
+                {name:'Gustav',country:'Sweden'},
+                {name:'Birgit',country:'Denmark'},
+                {name:'Mary',country:'England'},
+                {name:'Kai',country:'Norway'}
+                ];
+            $scope.orderByMe = function(x) {
+                $scope.myOrderBy = x;
+            }
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( add input then filter )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="namesCtrl">
+
+        <p>Type a letter in a input field.</p>
+
+        <p><input type="text" ng-model="test"></p>
+
+        <ul>
+            <li ng-repeat="x in names | filter: test">
+                {{ x }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('namesCtrl', function($scope) {
+            $scope.names = [
+                'Jani',
+                'Carl',
+                'Margareth',
+                'Hege',
+                'Joe',
+                'Gustav',
+                'Birgit',
+                'Mary',
+                'Kai'
+            ]
+        })
+    </script>
+
+    <p>The list will only consists of names matching the filter.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( filter )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="namesCtrl">
+        <ul>
+            <li ng-repeat="x in names | filter: 'i'">
+                {{ x }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('namesCtrl', function($scope) {
+            $scope.names = [
+                'Jani',
+                'Carl',
+                'Margareth',
+                'Hege',
+                'Joe',
+                'Gustav',
+                'Birgit',
+                'Mary',
+                'Kai'
+            ]
+        })
+    </script>
+
+    <p>This example displays only the names containing the letter 'i'</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( price | currency )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="costCtrl">
+        <h1>Price {{ price | currency }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('costCtrl', function($scope) {
+            $scope.price = 58;
+        })
+    </script>
+
+    <p>The currency filter formats a number to a currency format.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( orderBy: 'country' ) add in directive
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="nameCtrl">
+        <p>Looping with an array</p>
+
+        <ul>
+            <li ng-repeat="x in names | orderBy: 'country'">
+                {{ x.name + ', ' + x.country }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('nameCtrl', function($scope) {
+            $scope.names = [
+                {name:'Jani',country:'Norway'},
+                {name:'Carl',country:'Sweden'},
+                {name:'Margareth',country:'England'},
+                {name:'Hege',country:'Norway'},
+                {name:'Joe',country:'Denmark'},
+                {name:'Gustav',country:'Sweden'},
+                {name:'Birgit',country:'Denmark'},
+                {name:'Mary',country:'England'},
+                {name:'Kai',country:'Norway'}
+            ];
+        });
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters (name | lowercase ) add in expression
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="personCtrl">
+        <p>The name is {{ lastName | lowercase }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('personCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     filters ( name | uppercase ) add in expression
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="personCtrl">
+        <p>The name is {{ lastName | uppercase }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('personCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     root scope
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <p>The rootScope's favorite color.</p>
+    <h1>{{ color }}</h1>
+
+    <div ng-controller="myCtrl">
+        <p>The scope of the controller's favorite color.</p>
+        <h1>{{ color }}</h1>
+    </div>
+
+    <p>The rootScope's favorite color still</p>
+    <h1>{{ color }}</h1>
+    
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.run(function($rootScope) {
+            $rootScope.color = 'blue';
+        })
+
+        app.controller('myCtrl', function($scope) {
+            $scope.color = 'red';
+        })
+    </script>
+
+    <p>Notice that controller's color variable does not overwrite the 
+        rootScope's color value.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     know your scope
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in name">{{ x }}</li>
+        </ul>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.name = ['Emil','Tobias','Linus']
+        })
+    </script>
+
+    <p>The variable 'x' has a different value for each repitition, proving that 
+        each repitition has it own scope.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     understanding the scope
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <input type="text" ng-model="name">
+
+        <h1>My name is {{ name }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.name = 'John Doe';
+        })
+    </script>
+
+    <p>When you change the name in the input field, the changes will effect the 
+        model and it will also effect the name property in the controller.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     scopes
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1>{{ carname }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.carname = 'Volvo';
+        })
+    </script>
+
+    <p>The property 'carname' was made in the controller and can be referred to 
+        in the view by using {{}} brackets.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     another example
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="namesCtrl">
+        <ul>
+            <li ng-repeat="x in names">{{ x.name + ', ' + x.country }}</li>
+        </ul>
+    </div>
+
+    <script src="namesController.js"></script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     controllers (controller in external file)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="personController">
+        First name: <input type="text" ng-model="firstName"><br><br>
+        Last name: <input type="text" ng-model="lastName"><br><br>
+        Full name: {{ fullName() }}
+    </div>
+
+    <script src="personController.js"></script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     controllers (controller methods)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="personCtrl">
+        First name: <input type="text" ng-model="firstName"><br><br>
+        Last name: <input type="text" ng-model="lastName"><br><br>
+
+        Full name: {{ fullName() }}
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+        
+        app.controller('personCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+            $scope.fullName = function() {
+                return $scope.firstName + ' ' + $scope.lastName
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     angular js controller
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        First name: <input type="text" ng-model="firstName"><br><br>
+        Last name: <input type="text" ng-model="lastName"><br><br>
+
+        Full name: {{ firstName + ' ' + lastName}}
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding (angular js controller)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1 ng-click="changeName()">{{ firstname }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstname = 'John';
+            $scope.lastname = 'Doe';
+
+            $scope.changeName = function() {
+                $scope.firstname = 'Nelly';
+            }
+        })
+    </script>
+
+    <p>Click on the header to run the 'changeName' function</p>
+    <p>This example demonstrates how to use the controller to change model data.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding (two way binding)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        Name: <input type="text" ng-model="firstname">
+        <h1>{{ firstname }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstname = 'John';
+            $scope.lastname = 'Doe';
+        })
+    </script>
+
+    <p>Change the name inside the input field, and the model data will change 
+        automatically, and therefore also the header will change its value.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding (ng-model directive)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <input type="text" ng-model="firstname">
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstname = 'John';
+            $scope.lastname = 'Doe';
+        })
+    </script>
+
+    <p>Use the ng-model directive on HTML controls (input, select, textarea) to
+        bind data between the view and the data model.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     same example using {{}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>First name: {{ firstName }}</p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+ 
+    <p>You can use double braces to display content from the data model.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding (html view) ng-bind
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p ng-bind="firstName"></p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+
+    <p>Use the ng-bind directive to bind the innerHTML of an element to a 
+        property in the data model.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     ng-valid
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    
+    <style>
+        input.ng-valid 
+        {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <form ng-app="" name="myForm">
+        Enter your name: <input type="text" ng-model="myText" name="myName" required>
+    </form>
+
+    <p>Edit the text field and it will get/lose classes according to the status.</p>
+    <p><strong>Note: </strong>A text field with the 'required' attribute is not
+        valid when it is empty.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     css classes
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    
+    <style>
+        input.ng-invalid 
+        {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <form ng-app="" name="myForm">
+        Enter your name: <input type="text" ng-model="myText" name="myName" required>
+    </form>
+
+    <p>Edit the text field and it will get/lose classes according to the status.</p>
+    <p><strong>Note: </strong>A text field with the 'required' attribute is not
+        valid when it is empty.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     application status
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <form ng-app="" name="myForm" ng-init="myText = 'post@myweb.com'">
+        Email: <input type="email" name="myAddress" ng-model="myText" required>
+
+        <p>Edit the e-mail address, and try to change the status.</p>
+
+        <h1>Status</h1>
+
+        <p>Valid: {{ myForm.myAddress.$valid }} (if true, the value meets all 
+            critria).
+        </p>
+        <p>Dirty: {{ myForm.myAddress.$dirty }} (if true, the value has been 
+            changed).
+        </p>
+        <p>Touched: {{ myForm.myAddress.$touched }} (if true, the field has been 
+            in focus).
+        </p>
+    </form>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     validate user input
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <form ng-app="" name="myForm">
+        Email: <input type="email" name="myAddress" ng-model="text">
+        <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+    </form>
+
+    <p>Enter your e-mail address in the input field. AngularJS will display an 
+        errormessage if the address is not an e-mail.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     two way binding
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Name: <input type="text" ng-model="name"></p>
+
+        <h1>You entered: {{ name }}</h1>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.name = 'John Doe';
+        })
+    </script>
+
+    <p>Change the name inside the input field, and you will see the name in the 
+        header changes accordingly.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     ng-model
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>Name: <input type="text" ng-model="name"></p>
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.name = 'John Doe';
+        })
+    </script>
+
+    <p>Use the ng-model directive to bind the value of the input field to a property
+        made in the controller.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     restrict 'A'
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <w3-test-directive></w3-test-directive>
+
+    <div w3-test-directive></div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                restrict: 'A',
+                template: '<h1>Made by a directive!</h1>'
+            }
+        });
+    </script>
+
+    <p><strong>Note: </strong>By setting the <strong>restrict</strong> property 
+        to 'A', only the HTML element with the 'w3-test-directive' attribute has
+        invoked the directive.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     using comment
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    directive: w3-test-directive
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                restrict: 'M',
+                replace: true,
+                template: '<h1>Made by a directive!</h1>'
+            }
+        })
+    </script>
+
+    <p><strong>Note: </strong>We've added a <strong>replace</strong> property
+        in this example, otherwise the comment invisible.
+    </p>
+
+    <p><strong>Note: </strong>You must add the value 'M' to the <strong>restrict</strong> property
+        to be able to invoke the directive from a comment.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     using class
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div class="w3-test-directive"></div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                restrict: 'C',
+                template: '<h1>Made by a directive!</h1>'
+            }
+        })
+    </script>
+
+    <p><strong>Note: </strong>You must add the value 'C' to the restrict property
+    to be able to invoke the directive from a class.</p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     using attribute
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <div w3-test-directive></div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                template: '<h1>Made by a directive!</h1>'
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     using element name
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <w3-test-directive></w3-test-directive>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                template: '<h1>Made by a directive!</h1>'
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+    <w3-test-directive></w3-test-directive>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                template: '<h1>Made by a directive!</h1>'
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     object
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="names = [
+        {name: 'Jane', country: 'Norway'},
+        {name: 'Hege', country: 'Sewden'},
+        {name: 'Kai', country: 'Denmark'},
+    ]">
+        <p>Looping with objects:</p>
+
+        <ul>
+            <li ng-repeat="x in names">{{ x.name + ', ' + x.country }}</li>
+        </ul>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     ng-repeat
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="names = ['Jane','Hege','Kai']">
+        <p>Looping with ng-repeat:</p>
+
+        <ul>
+            <li ng-repeat="x in names">{{ x }}</li>
+        </ul>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding {{}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="quantity = 1; cost = 5">
+        <h2>Cost Calculator</h2>
+        Quantity: <input type="number" ng-model="quantity">
+        Price: <input type="number" ng-model="cost">
+
+        <p><b>Total in dollar: </b> {{ quantity * cost }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     data binding {{}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="quantity = 1; cost = 5">
+        <h2>Cost Calculator</h2>
+        Quantity: <input type="number" ng-model="quantity">
+        Price: <input type="number" ng-model="cost">
+
+        <p><b>Total in dollar: </b> {{ quantity * cost }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     directives
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <p>Input something in the input box</p>
+
+    <div ng-app="" ng-init="firstName = 'John'">
+        <p>Name: <input type="text" ng-model="firstName"></p>
+        <p>You wrote: {{firstName}}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     script places head or top of body
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+</head>
+<body>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{ firstName + ' ' + lastName }}
+    </div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+
+    <p>It is recommended that you load the Angular JS library either in the head
+        or at the start of the BODY.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     create files for myApp and myCtrl
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{ firstName + ' ' + lastName }}
+    </div>
+
+    <script src="myApp.js"></script>
+    <script src="myCtrl.js"></script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     directive
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" w3-test-directive></div>
+
+    <script>
+        let app = angular.module('myApp', []);
+
+        app.directive('w3TestDirective', function() {
+            return {
+                template : 'I was made in a directive constructor!'
+            }
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     module
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{ firstName + ' ' + lastName}}
+    </div>
+
+    <script>
+        let app = angular.module('myApp',[]);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     same example using ng-bind
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="points = [1, 15, 19, 2, 40]">
+        <p>The third result is <span ng-bind="points[2]"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     array
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="points = [1, 15, 19, 2, 40]">
+        <p>The third result is {{ points[2] }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     same example using ng-bind
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="person = {firstName: 'John', lastName : 'Doe'}">
+        <p>The name is <span ng-bind="person.lastName"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     object
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="person = { firstName: 'Usama', lastName: 'Israr'}">
+        <p>The name is {{person.lastName}}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     same example using ng-bind
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="firstName = 'John'; lastName = 'Doe'">
+        <p>The fullname is: <span ng-bind="firstName + ' ' + lastName"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     string
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="firstName = 'John'; lastName = 'Doe'">
+        <p>The fullname is: {{firstName + ' ' + lastName}}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>    same example using ng-bind  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="quantity = 1; cost = 5">
+        <p>Toal in dollar: <span ng-bind="quantity * cost"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>    number  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="quantity = 1; cost = 5">
+        <p>Total in dollar: {{ quantity * cost }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     change value of css property
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <p>Change the value of the input field.</p>
+
+    <div ng-app="" ng-init="myCol='lightblue'">
+        <input type="text" style="background-color: {{myCol}}" ng-model="myCol">
+    </div>
+
+    <p>Angular JS resolve the expression and return the result.</p>
+
+    <p>The background color of the input box will be whatever you write 
+        in the input field.
+    </p>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     remove ng-app 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <p>Without the ng-app directive, HTML will display the expression as it is, 
+        without soling it.
+    </p>
+
+    <div>
+        <p>My first expression: {{ 5 + 5 }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     expression
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p>My first expressions: {{ 5 + 5 }}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( myApp & myCtrl )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <p>Try to change the names:</p>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        Enter first name: <input type="text" ng-model="firstName"><br><br>
+        Enter last name: <input type="text" ng-model="lastName"><br><br>
+
+        Full name: {{firstName + ' ' + lastName}}
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = 'John';
+            $scope.lastName = 'Doe';
+        })
+    </script>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( another way )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p>Input something in the input box:</p>
+        <p>Name: <input type="text" ng-model="name"></p>
+        <p>{{name}}</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( expressions )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p>My first expression: {{ 5 + 5 }}.</p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( valid HTML directives )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div data-ng-app="" data-ng-init="firstName='Ali'">
+        <p>The name is <span data-ng-bind="firstName"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( init directives )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="" ng-init="firstName='Usama'">
+        <p>The name is <span ng-bind="firstName"></span></p>
+    </div>
+</body>
+</html -->
+
+
+<!-- <!DOCTYPE html>     intro ( directives )
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+
+    AngularJS Connected
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <p>Input something in the input box:</p>
+
+        <p>Name: <input type="text" ng-model="name"></p>
+
+        <p ng-bind="name"></p>
+    </div>
+</body>
+</html -->
